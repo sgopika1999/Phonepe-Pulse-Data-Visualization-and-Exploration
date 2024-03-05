@@ -61,45 +61,45 @@ If the libraries are already installed then we have to import those into our scr
 
 In this step the JSON files that are available in the folders are converted into the readeable and understandable DataFrame format by using the for loop and iterating file by file and then finally the DataFrame is created. In order to perform this step I've used os, json and pandas packages.
 
-path1 = "Path of the JSON files"
-agg_trans_list = os.listdir(path1)
+           path1 = "Path of the JSON files"
+           agg_trans_list = os.listdir(path1)
 
 # Give any column names that you want
-columns1 = {'State': [], 'Year': [], 'Quarter': [], 'Transaction_type': [], 'Transaction_count': [],'Transaction_amount': []}
+           columns1 = {'State': [], 'Year': [], 'Quarter': [], 'Transaction_type': [], 'Transaction_count': [],'Transaction_amount': []}
 
 Looping through each and every folder and opening the json files appending only the required key and values and creating the dataframe.
 
 
-for states in agg_insu_list:
-    cur_state=path0+states+"/"
-    agg_year_list=os.listdir(cur_state)
-
-    for year in agg_year_list:
-        cur_year=cur_state+year+"/"
-        agg_file_list=os.listdir(cur_year)
-
-        for file in agg_file_list:
-            cur_file=cur_year+file
-            data=open(cur_file,"r")
-            A=json.load(data)
-          
-
-            for i in A["data"]["transactionData"]:
-                payment_name=i["name"]
-                payment_amount=i["paymentInstruments"][0]["amount"]
-                payment_count=i["paymentInstruments"][0]["count"]                   
-                column0['Transaction_name'].append(payment_name)
-                column0['Transaction_amount'].append(payment_amount)
-                column0['Transaction_count'].append(payment_count)
-                column0['States'].append(states)
-                column0['Year'].append(year)
-                column0['Quarter'].append(int(file.strip('.json')))
-      Agg_insu=pd.DataFrame(column0)
-      Agg_insu["States"]=Agg_insu["States"].replace("andaman-&-nicobar-islands","Andaman & Nicobar island")
-      Agg_insu["States"]=Agg_insu["States"].replace("dadra-&-nagar-haveli-&-daman-&-diu","Dadra & Nagar Haveli and Daman & Diu")
-      Agg_insu["States"]=Agg_insu["States"].str.replace("-"," ")
-      Agg_insu["States"]=Agg_insu["States"].str.title()
-      Agg_insu
+        for states in agg_insu_list:
+            cur_state=path0+states+"/"
+            agg_year_list=os.listdir(cur_state)
+        
+            for year in agg_year_list:
+                cur_year=cur_state+year+"/"
+                agg_file_list=os.listdir(cur_year)
+        
+                for file in agg_file_list:
+                    cur_file=cur_year+file
+                    data=open(cur_file,"r")
+                    A=json.load(data)
+                  
+        
+                    for i in A["data"]["transactionData"]:
+                        payment_name=i["name"]
+                        payment_amount=i["paymentInstruments"][0]["amount"]
+                        payment_count=i["paymentInstruments"][0]["count"]                   
+                        column0['Transaction_name'].append(payment_name)
+                        column0['Transaction_amount'].append(payment_amount)
+                        column0['Transaction_count'].append(payment_count)
+                        column0['States'].append(states)
+                        column0['Year'].append(year)
+                        column0['Quarter'].append(int(file.strip('.json')))
+              Agg_insu=pd.DataFrame(column0)
+              Agg_insu["States"]=Agg_insu["States"].replace("andaman-&-nicobar-islands","Andaman & Nicobar island")
+              Agg_insu["States"]=Agg_insu["States"].replace("dadra-&-nagar-haveli-&-daman-&-diu","Dadra & Nagar Haveli and Daman & Diu")
+              Agg_insu["States"]=Agg_insu["States"].str.replace("-"," ")
+              Agg_insu["States"]=Agg_insu["States"].str.title()
+              Agg_insu
 
 # Step 4:
 ## Database insertion:
