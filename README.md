@@ -24,7 +24,7 @@ Git
 
 Pandas
 
-PostgreSQL
+mySQL
 
 Streamlit
 
